@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block page-container %}
+    <div class="login-item">
+        <div class="login-box">
+            <div class="login-title">
+                登陆QMi
+            </div>
+            <div class="login-body">
+                <form action="" method="post"> {% csrf_token %}
+                    <label style="display: block">Username: <input type="text" name="username" /></label>
+
+                    <label class="password-input">Password: <input type="password" name="password" /></label>
+                    <input class="login-button" type="submit" value="登录" />
+                </form>
+            </div>
+
+        </div>
+
+
+        <div>
+            {% if login_err %}
+                <p style="background-color: red;">
+                    {{ login_err }}
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

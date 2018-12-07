@@ -1,0 +1,93 @@
+{% extends 'NeuBoard/base.html' %}
+
+
+{% block main-content %}
+
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <div class="pageheader">
+                <h1>Basic Tables</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">You are here:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">Dashboard</a>
+                        </li>
+                        <li>话机信息</li>
+                        <li class="active">分机号</li>
+                    </ol>
+                </div>
+            </div>
+            <section id="main-content" class="animated fadeInUp" style="height:800px; overflow: scroll;">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Responsive table</h3>
+                                <div class="actions pull-right">
+                                    <i class="fa fa-expand"></i>
+                                    <i class="fa fa-chevron-down"></i>
+{#                                    <i class="fa fa-times"></i>#}
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped" style='font-size: 60%;'>
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox"></th>
+                                                <th>ID</th>
+                                                <th>日期</th>
+                                                <th>时间</th>
+                                                <th>位置</th>
+                                                <th>型号</th>
+                                                <th>工位</th>
+                                                <th>IP地址</th>
+                                                <th>MAC地址</th>
+                                                <th>SIP1分机号</th>
+                                                <th>SIP1状态</th>
+                                                <th>SIP1注册地址</th>
+                                                <!-- <th>SIP1出局</th> -->
+                                                <th>SIP2分机号</th>
+                                                <th>SIP2状态</th>
+                                                <th>SIP2注册地址</th>
+                                                <!-- <th>SIP2出局</th> -->
+                                                <th>升级地址</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in extensions_list %}
+                                            <tr>
+                                                <td><input type="checkbox" /></td>
+                                                <td>{{ item.id }}</td>
+                                                <td>{{ item.date }}</td>
+                                                <td>{{ item.time }}</td>
+                                                <td>{{ item.floor }}</td>
+                                                <td>{{ item.model }}</td>
+                                                <td>{{ item.position }}</td>
+                                                <td>{{ item.ip }}</td>
+                                                <td>{{ item.mac }}</td>
+                                                <td>{{ item.sip1 }}</td>
+                                                <td>{{ item.sip1_status }}</td>
+                                                <td>{{ item.sip1_server }}</td>
+                                                <td>{{ item.sip2 }}</td>
+                                                <td>{{ item.sip2_status }}</td>
+                                                <td>{{ item.sip2_server }}</td>
+                                                <td>{{ item.update_server }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </section>
+        <!--main content end-->
+
+{% endblock %}

@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load custom %}
+
+{% block page-container %}
+{#    <input name="Submit" type="submit" value="Submit" class="btn btn-info btn-default" target="_blank" onclick="return(confirm('确定要执行操作吗？点击确定后请等待页面自动跳转'))">#}
+{#    <div id="countdown"><input name="Submit" type="submit" value="Submit" class="btn btn-default" target="_blank" style="background-color: #ddd;"></div>#}
+{#    <div><input type="submit" value="123"></div>#}
+{#    <div id="get_ping_result" style="height:300px;width:100%;overflow:auto;"></div>#}
+    <div class="chat-container">
+
+        <div id="left_contact_panel" class="left-contact-panel">
+            <div>
+                <!-- Nav tabs -->
+{#                <ul class="nav" role="tablist" >#}
+{#                    <li role="presentation" class="active tab-item"><a href="#contact-tab" role="tab" data-toggle="tab">好友</a></li>#}
+{#                    <li role="presentation" class="tab-item tab-item-middle"><a href="#group-tab" role="tab" data-toggle="tab">群组</a></li>#}
+{#                    <li role="presentation" class="tab-item"><a href="#group-tab" role="tab" data-toggle="tab">文章</a></li>#}
+{#                </ul>#}
+                <div class="tab-head">
+                    <div class="avatar">
+                        <img id="user-head-img" class="user-head-img" src="/static/{{ request.user.userprofile.head_img|truncate_url }}" title="single dog">
+                    </div>
+                    <div class="info">
+                        <span>{{ request.user.userprofile.name }}</span>
+                    </div>
+
+                </div>
+                <div class="tab">
+                    <div class="tab-item">
+                        <a class="active-tab" title="好友" href="#contact-tab" role="tab" data-toggle="tab">好友</a>
+                    </div>
+                    <div class="tab-item tab-item-middle">
+                        <a title="群组" href="#group-tab" role="tab" data-toggle="tab">群组</a>
+                    </div>
+                    <div class="tab-item">
+                        <a title="文章" href="#article-tab" role="tab" data-toggle="tab">文章</a>
+                    </div>
+
+                </div>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="contact-tab">
+                        <ul class="list-group ">
+                            {% for friend in request.user.userprofile.friends.select_related %}
+                                <li contact-type="single" contact-id="{{ friend.id }}" class="tab-list-item">
+                                    <img class="user-head-img-samll" src="/static/{{ friend.head_img|truncate_url }}" alt="">
+                                    <span class="badge hidden">0</span>
+                                    <spn class="contact-name">{{ friend.name }}</spn>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="group-tab">
+                        <ul class="list-group">
+                            {% for group in request.user.userprofile.group_members.select_related %}
+                                <li contact-type="group" contact-id="{{ group.id }}" class="tab-list-item">
+                                    <span class="badge hidden">0</span>
+                                    <spn class="contact-name">{{ group.name }}</spn>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="article-tab">
+                        <ul class="list-group">
+{#                            <li contact-type="article" contact-id="{{ article.id }}" onclick="OpenChatWindow(this)" class="tab-list-item">#}
+{#                                <span class="badge hidden">0</span>#}
+{#                                <spn class="contact-name">{{ article.name }}</spn>#}
+{#                            </li>#}
+                            暂无文章
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="middle-chat-panel">
+            <div class="chat-box-title">
+                <div id="chat_box_title_user" contact-type="" contact-id="" style="display: inline-block;">
+
+                </div>
+
+
+            </div>
+            <div id="box_window" class="chat-box-window">
+                <ul>
+                    <div id="file-progress" class="progress" style="width:200px;right: 0px;top:5px;margin-top:5px;margin-left: 305px;">
+                        <div class="progress-bar progress-bar-success progress-bar-striped"  role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                            0%
+                        </div>
+                    </div>
+                    <li class="chat-mine">
+                        <div class="chat-user"><img src="/static/images/headimg/1.jpg"><cite><i>08:40:26 GMT+0800 (中国标准时间)</i>Seven Qi</cite></div>
+                        <div class="chat-img">
+                            <img src="/static/images/uploads/chat-background.jpg">
+                        </div>
+                        <div id="file-progress" class="progress" style="width:200px;right: 0px;top:5px;margin-top:5px;margin-left: 245px;">
+                            <div class="progress-bar progress-bar-success progress-bar-striped"  role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                0%
+                            </div>
+                        </div>
+
+                    </li>
+                    <li><div class="chat-user"><img src="/static/images/headimg/2.jpg"><cite>张晓宇<i>2017-09-08 11:38:54</i></cite></div>
+                        <div class="chat-text" >
+                            <div class="file-item">
+                                <div class="file-item-header">
+                                    <img src="/static/images/utils/filefolder.png" alt="">
+                                        SQLite_4455.rar
+                                </div>
+                                <a href="/static/3/SQLite_4455.rar" target="_blank">
+                                    <span>发送成功，点击下载！！！</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="chat-box-emoj">
+
+{#                <div id="show"></div>#}
+                <div style="display: inline;">
+                    <span class="emotion"><img src="/static/images/utils/face_menu.png" alt=""></span>
+                </div>
+                <div style="display: inline;">
+                    <span class="file-upload"><img src="/static/images/utils/file_upload.png" onclick="OpenFileUploadBox();" alt=""></span>
+                    <input class="hidden" id="file_upload" type="file" onchange="GetFilePath();" />
+                </div>
+                <div class="contact-content-history">
+                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                     聊天记录
+                </div>
+
+            </div>
+            <div class="chat-box-msg-box">
+                <textarea spellcheck="false" class="form-control" id="saytext" name="saytext" ></textarea>
+            </div>
+            <div class="chat-box-button">
+                <span>按下Ctrl+Enter换行</span>
+                <button id="send-btn" class="btn btn-success">发送</button>
+            </div>
+        </div>
+
+
+{#        右侧栏#}
+        <div id="right_statements_panel" class="right-statements-panel">
+            <div class="tab">
+                <div class="tab-item">
+                    <a class="active-tab" title="常用术语" href="#statements-tab" role="tab" data-toggle="tab">常用术语</a>
+                </div>
+                <div class="tab-item">
+                    <a title="软件" href="#software-tab" role="tab" data-toggle="tab">软件</a>
+                </div>
+            </div>
+
+            <div id="search_window" class="search-window">
+                <i class="search-button-icon"></i>
+                <input type="text" class="search-window-input" placeholder="搜索" title="" />
+                <i class="search-close-icon hidden"></i>
+            </div>
+
+            <!-- Tab panes -->
+            <div class="tab-content  statements-list">
+                <div role="tabpanel" class="tab-pane active" id="statements-tab">
+                    <ul class="list-group ">
+                        <li>你好，在吗？</li>
+                        <li>装QQ软件</li>
+                        <li>Outlook教程</li>
+                        <li>潮流话机禁用免打扰设置</li>
+                        <li>你好，在吗？</li>
+                        <li>装QQ软件</li>
+                        <li>Outlook教程</li>
+                        <li>xxxx</li>
+                        <li>你好，在吗？</li>
+                        <li>装QQ软件</li>
+                        <li>Outlook教程Outlook教程Outlook教程Outlook教程Outlook教程</li>
+                        <li>xxxx</li>
+                        <li>你好，在吗？</li>
+                        <li>装QQ软件</li>
+                        <li>Outlook教程</li>
+                        <li>Outlook教程Outlook教程Outlook教程Outlook教程Outlook教程</li>
+                        <li>xxxx</li>
+                        <li>你好，在吗？</li>
+                        <li>装QQ软件</li>
+                        <li>Outlook教程</li>
+                        <li>Outlook教程Outlook教程Outlook教程Outlook教程Outlook教程</li>
+                        <li>xxxx</li>
+                        <li>你好，在吗？</li>
+                        <li>装QQ软件</li>
+                        <li>Outlook教程</li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="software-tab">
+                    <ul class="list-group">
+                        <li class="rotatehover">
+                            <img class="rotate360" src="/static/images/software/xmind.png" alt="">
+                            Xmind软件
+                        </li>
+                        <li class="rotatehover">
+                            <img class="rotate360" src="/static/images/software/kmplayer.png" alt="">
+                            KMPlayer
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="clear-both"></div>
+    </div>
+
+{#    放大图片显示框#}
+    <div id="chat-modal-img" class="hidden">
+        <div class="chat-extend-img-box">
+            <img class="chat-extend-img" src="" alt="">
+        </div>
+        <div class="chat-modal-backdrop"></div>
+        <div class="chat-close-window"></div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block bottom-js %}
+    <script src="/static/bootstrap/js/custom.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/jquery.qqFace.js"></script>
+{% endblock %}

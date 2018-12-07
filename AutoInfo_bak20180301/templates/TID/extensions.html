@@ -1,0 +1,72 @@
+{% extends "TID/base.html" %}
+
+{% block main-content %}
+
+        <div class="main">
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+
+                <div class="col-md-12" >
+
+                    <div class="panel" style="overflow: auto;">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Extensions Info</h3>
+                            <div class="right">
+                                <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                {#                <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>#}
+                            </div>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>日期</th>
+                                        <th>时间</th>
+                                        <th>位置</th>
+                                        <th>型号</th>
+                                        <th>工位</th>
+                                        <th>IP地址</th>
+                                        <th>MAC地址</th>
+                                        <th>SIP1分机号</th>
+                                        <th>SIP1状态</th>
+                                        <th>SIP1注册地址</th>
+                                        <!-- <th>SIP1出局</th> -->
+                                        <th>SIP2分机号</th>
+                                        <th>SIP2状态</th>
+                                        <th>SIP2注册地址</th>
+                                        <!-- <th>SIP2出局</th> -->
+                                        <th>升级地址</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in extensions_list %}
+                                    <tr>
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.date }}</td>
+                                        <td>{{ item.time }}</td>
+                                        <td>{{ item.floor }}</td>
+                                        <td>{{ item.model }}</td>
+                                        <td>{{ item.position }}</td>
+                                        <td>{{ item.ip }}</td>
+                                        <td>{{ item.mac }}</td>
+                                        <td>{{ item.sip1 }}</td>
+                                        <td>{{ item.sip1_status }}</td>
+                                        <td>{{ item.sip1_server }}</td>
+                                        <td>{{ item.sip2 }}</td>
+                                        <td>{{ item.sip2_status }}</td>
+                                        <td>{{ item.sip2_server }}</td>
+                                        <td>{{ item.update_server }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+
+{% endblock %}
