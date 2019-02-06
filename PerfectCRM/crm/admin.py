@@ -3,7 +3,7 @@ from crm import models
 # Register your models here.
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'qq', 'source')
+    list_display = ('id', 'qq', 'source', 'referral_from')
 
 admin.site.register(models.Customer)
 admin.site.register(models.CustomerFollowUp)
