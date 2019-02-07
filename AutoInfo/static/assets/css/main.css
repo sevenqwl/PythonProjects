@@ -85,10 +85,10 @@ img {
   max-width: 100%;
 }
 ::selection {
-  background: #fff7dd;
+  background: #9af3ee;
 }
 ::-moz-selection {
-  background: #fff7dd;
+  background: #9af3ee;
 }
 canvas {
   display: block;

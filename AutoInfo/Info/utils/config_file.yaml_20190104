@@ -1,0 +1,185 @@
+type: config
+platform:
+    扬州行政电话:
+        Sip1_Enable: Enabled
+        Sip1_DisplayName: extensionself
+        Sip1_Label: extensionself
+        Sip1_UserName: extensionself
+        Sip1_AuthUserName: extensionself
+        Sip1_AuthPassword: jdextensionself
+        Sip1_RegistrarServer: 10.6.0.250
+        Sip1_UseOutboundProxy: Enabled
+        Sip1_OutboundProxy: 10.6.0.250
+        Sip1_AutoAnswerEnable: false
+
+        Sip2_Enable: Disabled
+        Sip2_DisplayName: ""
+        Sip2_Label: ""
+        Sip2_UserName: ""
+        Sip2_AuthUserName: ""
+        Sip2_AuthPassword: ""
+        Sip2_RegistrarServer: ""
+        Sip2_UseOutboundProxy: Disabled
+        Sip2_OutboundProxy: ""
+        Sip2_AutoAnswerEnable: false
+
+    扬州CTI:
+        Sip1_Enable: Enabled
+        Sip1_DisplayName: extensionself
+        Sip1_Label: extensionself
+        Sip1_UserName: extensionself
+        Sip1_AuthUserName: extensionself
+        Sip1_AuthPassword: "1234"
+        Sip1_RegistrarServer: 10.6.2.111
+        Sip1_UseOutboundProxy: Enabled
+        Sip1_OutboundProxy: 10.6.2.111
+        Sip1_AutoAnswerEnable: true
+
+        Sip2_Enable: Disabled
+        Sip2_DisplayName: ""
+        Sip2_Label: ""
+        Sip2_UserName: ""
+        Sip2_AuthUserName: ""
+        Sip2_AuthPassword: ""
+        Sip2_RegistrarServer: ""
+        Sip2_UseOutboundProxy: Disabled
+        Sip2_OutboundProxy: ""
+        Sip2_AutoAnswerEnable: true
+
+    宿迁CTI[51/52号段]:
+        Sip1_Enable: Enabled
+        Sip1_DisplayName: extensionself
+        Sip1_Label: extensionself
+        Sip1_UserName: extensionself
+        Sip1_AuthUserName: extensionself
+        Sip1_AuthPassword: "1234"
+        Sip1_RegistrarServer: 10.6.252.116
+        Sip1_UseOutboundProxy: Enabled
+        Sip1_OutboundProxy: ""
+        Sip1_AutoAnswerEnable: true
+
+        Sip2_Enable: Disabled
+        Sip2_DisplayName: ""
+        Sip2_Label: ""
+        Sip2_UserName: ""
+        Sip2_AuthUserName: ""
+        Sip2_AuthPassword: ""
+        Sip2_RegistrarServer: ""
+        Sip2_UseOutboundProxy: Disabled
+        Sip2_OutboundProxy: ""
+        Sip2_AutoAnswerEnable: true
+
+    宿迁CTI[50号段]:
+        Sip1_Enable: Enabled
+        Sip1_DisplayName: extensionself
+        Sip1_Label: extensionself
+        Sip1_UserName: extensionself
+        Sip1_AuthUserName: extensionself
+        Sip1_AuthPassword: "1234"
+        Sip1_RegistrarServer: 10.6.252.74
+        Sip1_UseOutboundProxy: Enabled
+        Sip1_OutboundProxy: ""
+        Sip1_AutoAnswerEnable: true
+
+        Sip2_Enable: Disabled
+        Sip2_DisplayName: ""
+        Sip2_Label: ""
+        Sip2_UserName: ""
+        Sip2_AuthUserName: ""
+        Sip2_AuthPassword: ""
+        Sip2_RegistrarServer: ""
+        Sip2_UseOutboundProxy: Disabled
+        Sip2_OutboundProxy: ""
+        Sip2_AutoAnswerEnable: true
+
+    宿迁CTI[57号段]:
+        Sip1_Enable: Enabled
+        Sip1_DisplayName: extensionself
+        Sip1_Label: extensionself
+        Sip1_UserName: extensionself
+        Sip1_AuthUserName: extensionself
+        Sip1_AuthPassword: "1234"
+        Sip1_RegistrarServer: 10.6.252.117
+        Sip1_UseOutboundProxy: Enabled
+        Sip1_OutboundProxy: ""
+        Sip1_AutoAnswerEnable: true
+
+        Sip2_Enable: Disabled
+        Sip2_DisplayName: ""
+        Sip2_Label: ""
+        Sip2_UserName: ""
+        Sip2_AuthUserName: ""
+        Sip2_AuthPassword: ""
+        Sip2_RegistrarServer: ""
+        Sip2_UseOutboundProxy: Disabled
+        Sip2_OutboundProxy: ""
+        Sip2_AutoAnswerEnable: true
+
+    Genesys[40号段]:
+        Sip1_Enable: Enabled
+        Sip1_DisplayName: extensionself
+        Sip1_Label: extensionself
+        Sip1_UserName: extensionself
+        Sip1_AuthUserName: extensionself
+        Sip1_AuthPassword: extensionself
+        Sip1_RegistrarServer: 10.4.250.50
+        Sip1_UseOutboundProxy: Disabled
+        Sip1_OutboundProxy: ""
+        Sip1_AutoAnswerEnable: true
+
+        Sip2_Enable: Enabled
+        Sip2_DisplayName: extensionself
+        Sip2_Label: extensionself
+        Sip2_UserName: extensionself
+        Sip2_AuthUserName: extensionself
+        Sip2_AuthPassword: extensionself
+        Sip2_RegistrarServer: 10.6.250.50
+        Sip2_UseOutboundProxy: Disabled
+        Sip2_OutboundProxy: ""
+        Sip2_AutoAnswerEnable: true
+
+    Genesys[45号段]:
+        Sip1_Enable: Enabled
+        Sip1_DisplayName: extensionself
+        Sip1_Label: extensionself
+        Sip1_UserName: extensionself
+        Sip1_AuthUserName: extensionself
+        Sip1_AuthPassword: extensionself
+        Sip1_RegistrarServer: "10.4.250.53"
+        Sip1_UseOutboundProxy: Disabled
+        Sip1_OutboundProxy: "10.4.250.53"
+        Sip1_AutoAnswerEnable: true
+
+        Sip2_Enable: Enabled
+        Sip2_DisplayName: extensionself
+        Sip2_Label: extensionself
+        Sip2_UserName: extensionself
+        Sip2_AuthUserName: extensionself
+        Sip2_AuthPassword: extensionself
+        Sip2_RegistrarServer: "10.6.250.53"
+        Sip2_UseOutboundProxy: Disabled
+        Sip2_OutboundProxy: "10.6.250.53"
+        Sip2_AutoAnswerEnable: true
+
+    清除配置:
+        Sip1_Enable: Disabled
+        Sip1_DisplayName: ""
+        Sip1_Label: ""
+        Sip1_UserName: ""
+        Sip1_AuthUserName: ""
+        Sip1_AuthPassword: ""
+        Sip1_RegistrarServer: ""
+        Sip1_UseOutboundProxy: Disabled
+        Sip1_OutboundProxy: ""
+        Sip1_AutoAnswerEnable: false
+
+        Sip2_Enable: Disabled
+        Sip2_DisplayName: ""
+        Sip2_Label: ""
+        Sip2_UserName: ""
+        Sip2_AuthUserName: ""
+        Sip2_AuthPassword: ""
+        Sip2_RegistrarServer: ""
+        Sip2_UseOutboundProxy: Disabled
+        Sip2_OutboundProxy: ""
+        Sip2_AutoAnswerEnable: false

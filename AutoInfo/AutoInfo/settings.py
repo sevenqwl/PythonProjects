@@ -25,7 +25,7 @@ SECRET_KEY = '!r%dbl8zn&q9n!fjx^%paz%)#(bk-zq7_g(y(rppazp6*o_azm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.6.0.118','127.0.0.1']
+ALLOWED_HOSTS = ['10.6.0.118', '0.0.0.0', '127.0.0.1','neup.jd.com']
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Info',
+    'django_celery_beat',
+    # 'Info_test',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.is_login.Is_login'
 ]
 
 ROOT_URLCONF = 'AutoInfo.urls'
@@ -78,11 +81,14 @@ WSGI_APPLICATION = 'AutoInfo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'userinfo',
+        'NAME': 'Autoinfo',
         'USER': 'seven',
-        'PASSWORD': '123.com',
-        'HOST': '10.6.0.177',
+        'PASSWORD': 'icson@123',
+        'HOST': '10.6.0.118',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
     }
 }
 
@@ -111,7 +117,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -128,9 +135,42 @@ LOGIN_URL = '/login/'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 # STATIC_ROOT = '/var/www/AutoInfo/static'
-STATIC_ROOT = '/home/AutoInfo/static'
+# STATIC_ROOT = '/home/AutoInfo/static'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "media"),
 ]
+
+# Celery settings
+# CELERY_DIR = '/home/AutoInfo/'
+
+# CELERY_ENABLE_UTC = False
+CELERY_TIMEZONE = 'Asia/Shanghai'
+
+
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+# CELERY_BROKER_URL = 'mongodb://10.6.0.149:27017/celery'
+# CELERY_RESULT_BACKEND = 'mongodb://10.6.0.149:27017/celery'
+
+CELERY_BROKER_URL = 'redis://10.6.0.118:6379/0'
+CELERY_RESULT_BACKEND = 'redis://10.6.0.118:6379/0'
+
+# CELERY_CELERYD_CONCURRENCY = 4  # 任务并发数
+
+# CELERY_CELERYBEAT_SCHEDULE = {
+#     "every-1-minute": {
+#         'task': 'Info.tasks.add',
+#         'schedule': crontab(minute='*/1'),
+#         'args': (5, 6)
+#     }
+# }
+# CELERY_CELERY_ROUTES = {  # 配置任务的先后顺序
+#     'Info.tasks.add': {'queue': 'for_add', 'router_key': 'for_add'},
+#     'Info.tasks.reboot_phone': {'queue': 'for_reboot_phone', 'router_key': 'for_reboot_phone'},
+#     'Info.tasks.crontab_reboot': {'queue': 'for_crontab_reboot', 'router_key': 'for_crontab_reboot'},
+# }
+

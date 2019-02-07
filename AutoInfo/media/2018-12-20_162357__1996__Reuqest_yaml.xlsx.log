@@ -1,0 +1,62 @@
+10.6.10.113  8078     HTTP/1.1 202 Task queued but not processed
+10.6.10.116  8079     HTTP/1.1 202 Task queued but not processed
+10.6.10.119  8080     HTTP/1.1 202 Task queued but not processed
+10.6.10.67  Error Code:  20,  未有该IP信息的数据
+10.6.10.68  8082     HTTP/1.1 200 OK
+10.6.10.112  8083     HTTP/1.1 200 OK
+10.6.10.114  8084     HTTP/1.1 200 OK
+10.6.10.115  8085     HTTP/1.1 200 OK
+10.6.10.117  8121     HTTP/1.1 200 OK
+10.6.10.118  8122     HTTP/1.1 200 OK
+10.6.10.120  Error Code:  10,  未获取到厂商品牌名称
+10.6.10.121  8124     HTTP/1.1 202 Task queued but not processed
+10.6.10.122  8125     HTTP/1.1 200 OK
+10.6.10.123  Error Code:  10,  未获取到厂商品牌名称
+10.6.10.124  8127     HTTP/1.1 200 OK
+10.6.10.125  8128     HTTP/1.1 200 OK
+10.6.10.126  Error Code:  20,  未有该IP信息的数据
+10.6.10.127  Error Code:  20,  未有该IP信息的数据
+10.6.10.128  8131     HTTP/1.1 202 Task queued but not processed
+10.6.10.129  Error Code:  20,  未有该IP信息的数据
+10.6.10.130  Error Code:  20,  未有该IP信息的数据
+10.6.10.131  8134     HTTP/1.1 202 Task queued but not processed
+10.6.10.58  8135     HTTP/1.1 200 OK
+10.6.10.59  8136     HTTP/1.1 202 Task queued but not processed
+10.6.10.60  Error Code:  20,  未有该IP信息的数据
+10.6.10.61  8451     HTTP/1.1 200 OK
+10.6.10.62  8452     HTTP/1.1 200 OK
+10.6.10.63  8453     HTTP/1.1 200 OK
+10.6.10.64  8454     HTTP/1.1 200 OK
+10.6.10.65  8455     HTTP/1.1 200 OK
+10.6.10.66  8456     HTTP/1.1 200 OK
+10.6.10.69  8457     HTTP/1.1 200 OK
+10.6.10.70  8458     HTTP/1.1 200 OK
+10.6.10.71  8459     HTTP/1.1 200 OK
+10.6.10.72  8460     HTTP/1.1 200 OK
+10.6.10.73  8461     HTTP/1.1 200 OK
+10.6.10.74  Error Code:  20,  未有该IP信息的数据
+10.6.10.75  Error Code:  20,  未有该IP信息的数据
+10.6.10.76  8464     HTTP/1.1 200 OK
+10.6.10.77  8465     HTTP/1.1 200 OK
+10.6.10.78  Error Code:  20,  未有该IP信息的数据
+10.6.10.79  8467     HTTP/1.1 200 OK
+10.6.10.80  8468     HTTP/1.1 200 OK
+10.6.10.81  8469     HTTP/1.1 200 OK
+10.6.10.82  8470     HTTP/1.1 200 OK
+10.6.10.83  8471     HTTP/1.1 202 Task queued but not processed
+10.6.10.84  8472     HTTP/1.1 202 Task queued but not processed
+10.6.10.85  8473     HTTP/1.1 202 Task queued but not processed
+10.6.10.86  8474     HTTP/1.1 202 Task queued but not processed
+10.6.10.87  Error Code:  20,  未有该IP信息的数据
+10.6.10.88  8476     HTTP/1.1 200 OK
+10.6.10.89  8477     HTTP/1.1 200 OK
+10.6.10.90  8478     HTTP/1.1 200 OK
+10.6.10.91  8479     HTTP/1.1 200 OK
+10.6.10.92  8480     HTTP/1.1 200 OK
+10.6.10.93  8481     HTTP/1.1 202 Task queued but not processed
+10.6.10.94  8482     HTTP/1.1 200 OK
+10.6.10.95  8483     HTTP/1.1 200 OK
+10.6.10.96  8484     HTTP/1.1 200 OK
+10.6.10.97  8485     HTTP/1.1 200 OK
+10.6.10.98  8486     HTTP/1.1 200 OK
+10.6.10.99  8487     HTTP/1.1 202 Task queued but not processed

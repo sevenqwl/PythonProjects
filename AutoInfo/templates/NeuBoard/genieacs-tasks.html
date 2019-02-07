@@ -1,0 +1,803 @@
+{% extends 'NeuBoard/base.html' %}
+{% load custom %}
+
+{% block main-content %}
+
+
+
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <div class="pageheader">
+                <h1>Genieacs Tasks</h1>
+                <div class="breadcrumb-wrapper hidden-xs">
+                    <span class="label">You are here:</span>
+                    <ol class="breadcrumb">
+                        <li><a href="index">Dashboard</a>
+                        </li>
+                        <li>话机信息</li>
+                        <li class="active"><a href="{% url 'genieacs' %}/tasks">Genieacs Tasks</a></li>
+                    </ol>
+                </div>
+            </div>
+            <section id="main-content" class="animated fadeInUp">
+
+                <div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day">
+                    <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                    <input type="text" autocomplete="off" name="" placeholder="选择日期" class="c-datepicker-data-input only-date" value="">
+                </div>
+
+                <!-- 话机信息表 -->
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a href="{%  url 'genieacs' %}/tasks">genieacs tasks table</a></h3>
+
+                                <div class="actions pull-right">
+                                    <span data-toggle="modal" data-target="#searchModal" style="margin: 0 10px 0 0;cursor: pointer; line-height: 30px; color: #ffbc82">
+                                        高级搜索
+                                    </span>
+                                    <input id="search_keywords" type="text" class="search" placeholder="Search ..." style="-webkit-appearance: none !important;color: #282323;
+                                      outline: 0;
+                                      height: 30px;
+                                      width: 280px;
+                                      padding: 7px 15px;
+                                      font-size: 0.75em;
+                                      font-weight: normal;
+                                      vertical-align: top;
+                                      background-color: #EDF1F2;
+                                      -webkit-box-shadow: none;
+                                      -moz-box-shadow: none;
+                                      box-shadow: none;
+                                      -webkit-border-radius: 30px;
+                                      -moz-border-radius: 30px;
+                                      -ms-border-radius: 30px;
+                                      -o-border-radius: 30px;
+                                      border-radius: 30px;
+                                      border: none;
+                                      transition: background 0.2s linear 0s, box-shadow 0.2s linear 0s;
+                                      position: relative;
+                                      right: 10px;">
+                                    <button id="search_button" type="submit" class="btn btn-sm btn-search" style="position:absolute; right:50px;background: none;"><i class="fa fa-search"></i></button>
+
+
+                                    <i class="fa fa-expand"></i>
+                                    <i class="fa fa-chevron-down"></i>
+{#                                    <i class="fa fa-times"></i>#}
+                                </div>
+                            </div>
+
+                            <div id="main_panel" class="panel-body" style="height:480px; overflow: auto;">
+                                <div class="tab-wrapper tab-primary">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#home1" data-toggle="tab">Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="#multishow" data-toggle="tab">批量查询</a>
+                                        </li>
+                                        <li>
+                                            <a href="#repeat_list" data-toggle="tab">重复分机号<span class="badge" style="border-radius: 20px">{{ repeat_list_count }}</span></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">配置选项 <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a data-toggle="modal" data-target="#configModal" style="cursor:pointer;">
+                                                        配置话机
+                                                    </a>
+                                                </li>
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a style="display: inline-block;margin-right: 20px;">
+                                                        <button type="button" id="excel_export" class="btn btn-success btn-sm">导出Excel</button>
+                                                    </a>
+                                                </li>
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a data-toggle="modal" data-target="#wakeupModal" style="cursor:pointer;">
+                                                        远程唤醒
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="home1" >
+                                            <table id="genieacs_table" class="table table-striped table-hover-pink" >
+                                                <thead>
+                                                    <tr>
+                                                        <th><input type="checkbox" /></th>
+                                                        <th>ID</th>
+                                                        <th>日期<i class="fa" style="padding:0 3px;"></th>
+                                                        <th>时间<i class="fa fa-caret-up" style="padding:0 3px;"></i></th>
+                                                        <th>设备ID<i class="fa fa-caret-down" style="padding:0 3px;"></i></th>
+                                                        <th>任务名称</th>
+                                                        <th>参数值</th>
+                                                        <th>配置选项</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for item in genieacs_list %}
+                                                    <tr>
+                                                        <td><input type="checkbox" /></td>
+
+                                                        <td name="id" title="{{ item|truncate_value:"_id" }}" value="{{ item|truncate_value:"_id" }}">{{ id_num|add:forloop.counter }}</td>
+                                                        <td>{{ item|truncate_value:"timestamp"|nowtime:'date' }}</td>
+                                                        <td>{{ item|truncate_value:"timestamp"|nowtime:'time' }}</td>
+                                                        <td>{{ item|truncate_value:"device" }}</td>
+                                                        <td>{{ item|truncate_value:"name" }}</td>
+                                                        {% if item|truncate_value:"name" == "setParameterValues" %}
+                                                            <td>{{ item|truncate_value:"parameterValues" }}</td>
+                                                        {% elif item|truncate_value:"name" == "refreshObject" %}
+                                                            <td>{{ item|truncate_value:"objectName" }}</td>
+                                                        {% elif item|truncate_value:"name" == "getParameterValues" %}
+                                                            <td>{{ item|truncate_value:"parameterNames" }}</td>
+                                                        {% else %}
+                                                            <td></td>
+                                                        {% endif %}
+
+
+
+{#                                                        <td name="date" title="{{ item|truncate_value:"_lastInform"|nowtime:'date' }}">{{ item|truncate_value:"_lastInform"|nowtime:'date' }}</td>#}
+{#                                                        <td name="time" title="{{ item|truncate_value:"_lastInform"|nowtime:'time' }}">{{ item|truncate_value:"_lastInform"|nowtime:'time' }}</td>#}
+{#                                                        <td name="floor"></td>#}
+{#                                                        <td name="ProductClass" title="{{ item|truncate_dict:"Device.DeviceInfo.ProductClass._value" }}">{{ item|truncate_dict:"Device.DeviceInfo.ProductClass._value" }}</td>#}
+{#                                                        <td name="SoftwareVersion" title="{{ item|truncate_dict:"Device.DeviceInfo.SoftwareVersion._value" }}">{{ item|truncate_dict:"Device.DeviceInfo.SoftwareVersion._value" }}</td>#}
+{#                                                        <td name="position">{{ item|truncate_dict:"VirtualParameters.IP._value"|truncate_position:positions_data|default:"" }}</td>#}
+{#                                                        <td name="IP" title="{{ item|truncate_dict:"VirtualParameters.IP._value" }}" value="{{ item|truncate_dict:"VirtualParameters.IP._value" }}"><a#}
+{#                                                                href="http://{{ item|truncate_dict:'VirtualParameters.IP._value' }}" target="_blank"><i class="fa  fa-fw fa-phone-square"></i></a>{{ item|truncate_dict:"VirtualParameters.IP._value" }}</td>#}
+{#                                                        <td name="MAC" title="{{ item|truncate_dict:"Device.LAN.MACAddress._value"|parsemac }}">{{ item|truncate_dict:"Device.LAN.MACAddress._value"|parsemac }}</td>#}
+{#                                                        <td name="SIP1" >{{ item|truncate_dict:"VirtualParameters.SIP1._value" }}</td>#}
+{#                                                        <td name="SIP1_Status" >{{ item|truncate_dict:"VirtualParameters.SIP1 Status._value" }}</td>#}
+{#                                                        <td name="SIP1_RegistrarServer" >{{ item|truncate_dict:"VirtualParameters.SIP1 RegistrarServer._value" }}</td>#}
+{#                                                        <td name="SIP1_OutboundProxy" >{{ item|truncate_dict:"VirtualParameters.SIP1 OutboundProxy._value" }}</td>#}
+{#                                                        <td name="SIP2" >{{ item|truncate_dict:"VirtualParameters.SIP2._value" }}</td>#}
+{#                                                        <td name="SIP2_Status" >{{ item|truncate_dict:"VirtualParameters.SIP2 Status._value" }}</td>#}
+{#                                                        <td name="SIP2_RegistrarServer" >{{ item|truncate_dict:"VirtualParameters.SIP2 RegistrarServer._value" }}</td>#}
+{#                                                        <td name="SIP2_OutboundProxy" >{{ item|truncate_dict:"VirtualParameters.SIP2 OutboundProxy._value" }}</td>#}
+{#                                                        <td name="AutoUpdate_Url" >{{ item|truncate_dict:"VirtualParameters.AutoUpdate Url._value" }}</td>#}
+{#                                                        <td title="{{ item|truncate_value:"_lastBoot"|nowtime:'datetime' }}">{{ item|truncate_value:"_lastBoot"|nowtime:'timediff' }}</td>#}
+{#                                                        <td title="{{ item|truncate_dict:"Device.DeviceInfo.UpTime._timestamp"|nowtime:'datetime' }}">{{ item|truncate_dict:"Device.DeviceInfo.UpTime._value"|sec2time }}</td>#}
+
+
+                                                        <td name="config_option" >
+                                                            <div class="btn-group view-hide" >
+                                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                                    选项 <span class="caret"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu" role="menu">
+                                                                    <li>
+                                                                        <a data-toggle="modal" data-target="#configModal" style="cursor:pointer;">
+                                                                            配置话机
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{% url 'genieacs' %}?searchtype=search&search_keywords={{ item|truncate_dict:"VirtualParameters.SIP1._value" }}">查询SIP1分机号</a>
+                                                                    </li>
+
+                                                                    <li class="divider"></li>
+                                                                    <li>
+                                                                        <a class="reboot_phone">话机重启</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <button type="button" class="btn btn-success btn-xs ping" style="margin-left:5px;">Ping</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane" id="multishow" style="">
+                                            <p>
+                                               批量查询支持 <span class="danger-color">IP、SIP1、SIP2分机号</span> 查询
+                                            </p>
+
+                                            <label class="col-sm-3 control-label"></label>
+                                            <form action="{% url 'genieacs' %}">
+                                                <textarea name="multishow" class="form-control" rows="15"></textarea>
+                                                <input type="submit" class="btn btn-info" value="submit" style="margin-top: 5px;">
+                                            </form>
+                                        </div>
+
+                                        <div class="tab-pane" id="repeat_list" style="">
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list"><button class="btn btn-info btn-sm">所有重复分机详情{{ repeat_list.count }}</button></a>
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list&intime=168"><button class="btn btn-info btn-sm">7天内</button></a>
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list&intime=24"><button class="btn btn-info btn-sm">1天内</button></a>
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list&intime=12"><button class="btn btn-info btn-sm">12小时内</button></a>
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list&intime=6"><button class="btn btn-info btn-sm">6小时内</button></a>
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list&intime=2"><button class="btn btn-info btn-sm">2小时内</button></a>
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list&intime=1"><button class="btn btn-info btn-sm">1小时内</button></a>
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list&intime=0.5"><button class="btn btn-info btn-sm">30分钟内</button></a>
+                                            <a href="{% url 'genieacs' %}?searchtype=repeat_list&intime=0.25"><button class="btn btn-info btn-sm">15分钟内</button></a>
+
+                                            <table class="table table-striped table-hover-pink">
+                                                <thead>
+                                                    <tr>
+                                                        <th><input type="checkbox" /></th>
+                                                        <th>重复分机号</th>
+                                                        <th>重复数量</th>
+                                                        <th>分机详情</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for i in repeat_list %}
+                                                        {% if i|truncate_value:"_id" %}
+                                                            <tr>
+                                                                <td><input type="checkbox" /></td>
+                                                                <td>{{ i|truncate_value:"_id" }}</td>
+                                                                <td>{{ i.count }}</td>
+                                                                <td><a href="{% url 'genieacs' %}?searchtype=search&search_keywords={{ i|truncate_value:'_id' }}"><i class="fa fa-columns"></i></a></td>
+                                                            </tr>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="panel-footer" style="text-align: center">
+                                <i class="fa fa-chevron-circle-down" style="font-size: 18px;cursor:pointer;"></i>
+                                <div class="btn-toolbar" role="toolbar" style="float:right;right: 30px;bottom: 8px;">
+                                    <div class="btn-group">
+                                        <a href="{{ 1|pageurl:request.get_full_path }}"><button type="button" class="btn btn-sm btn-default" value="1">首页</button></a>
+                                        {% if page > 1 %}
+                                            <a href="{{ page|pagecounter:-1|pageurl:request.get_full_path}}"><button type="button" class="btn btn-sm btn-default" value="{{ page|add:-1 }}"><<</button></a>
+                                        {% endif %}
+                                        {% for i in list_pagenum %}
+                                            {% if page|add:i <= num_pages  %}
+                                                <a href="{{ page|pagecounter:forloop.counter|pageurl:request.get_full_path }}"><button type="button" class="btn btn-sm btn-default" value="{{ page|add:forloop.counter }}">{{ page|add:forloop.counter }}</button></a>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if page < num_pages %}
+                                            <a href="{{ page|pagecounter:1|pageurl:request.get_full_path}}"><button type="button" class="btn btn-sm btn-default" value="{{ page|add:1 }}">>></button></a>
+                                        {% endif %}
+                                        <a href="{{ num_pages|pageurl:request.get_full_path }}"><button type="button" class="btn btn-sm btn-default" value="{{ page|add:num_pages }}">末页</button></a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-default">共{{ num_pages }}页</button>
+                                    </div>
+
+                                    <div style="margin-left: 10px;float: left;">
+                                        <select name="" id="list-nums" style="padding: 2px 0;">
+                                            <option value="20">20 条/页</option>
+                                            <option value="50">50 条/页</option>
+                                            <option value="100">100 条/页</option>
+                                            <option value="200">200 条/页</option>
+                                            <option value="500">500 条/页</option>
+                                            <option value="1000">1000 条/页</option>
+                                            <option value="2000">2000 条/页</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </section>
+        <!--main content end-->
+
+        <div id="loading" class="loading hidden" style="width:160px;
+    height:56px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    line-height:56px;
+    color:#fff;
+    padding-left:60px;
+    font-size:15px;
+    background: #000 url('/static/images/utils/loading.gif') no-repeat 10px 50%;
+    opacity: 0.7;
+    z-index:9999;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=70);">正在加载中...</div>
+{% endblock %}
+
+{% block define-script %}
+
+    <script src="/static/assets/js/datepicker/plugins/moment.min.js"></script>
+    <!-- <script src="js/datapicker-separate/api.js"></script>
+    <script src="js/datapicker-separate/year.js"></script>
+    <script src="js/datapicker-separate/month.js"></script>
+    <script src="js/datapicker-separate/day.js"></script>
+    <script src="js/datapicker-separate/time.js"></script>
+    <script src="js/datapicker-separate/datepicker.js"></script> -->
+
+    <script src="/static/assets/js/datepicker/datepicker.all.js"></script>
+    <!-- <script src="js/datepicker.all.min.js"></script> -->
+    <script type="text/javascript">
+      // 年月日单个(J-datepicker-day对应html里的input父元素div)
+$('.J-datepicker-day').datePicker({
+    hasShortcut: true,
+    format: 'YYYY-MM-DD',
+    shortcutOptions: [{
+        name: '今天',
+        day: '0'
+    }, {
+        name: '昨天',
+        day: '-1'
+    }, {
+        name: '一周前',
+        day: '-7'
+    }]
+});
+    </script>
+        <script>
+
+            //for csrf
+            // using jQuery
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            var csrftoken = getCookie('csrftoken');
+
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            //end csrf
+        
+            // 展开表格高度
+            $('.panel-footer .fa').on('click', function(){
+                var ele = $('#main_panel');
+                var defaultHeight = "480px";
+                var autoHeight = ele.css('height', 'auto').height();
+                if ($(this).hasClass('fa-chevron-circle-down')){
+                    ele.animate({height: autoHeight}, 500);
+                    $(this).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                }else{
+                    ele.animate({height: defaultHeight}, 500);
+                    $(this).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                }
+            });
+
+            // 搜索框查询
+            $('#search_button').on('click', function(){
+                var search_keywords = $('#search_keywords').val();
+                if(search_keywords != ""){
+                    // alert(search_keywords);
+                    window.location.href="{% url 'genieacs' %}?searchtype=search&search_keywords=" + search_keywords;
+                }
+
+            });
+
+
+
+            //DoughnutChart
+            var doughnutData = [{
+                    value: 300,
+                    color: "#1ABC9C",
+                    highlight: "#1ABC9C",
+                    label: "Chrome"
+                }, {
+                    value: 50,
+                    color: "#556B8D",
+                    highlight: "#556B8D",
+                    label: "IE"
+                }, {
+                    value: 100,
+                    color: "#EDCE8C",
+                    highlight: "#EDCE8C",
+                    label: "Safari"
+                }, {
+                    value: 40,
+                    color: "#CED1D3",
+                    highlight: "#1F7BB6",
+                    label: "Other"
+                }, {
+                    value: 120,
+                    color: "#1F7BB6",
+                    highlight: "#1F7BB6",
+                    label: "Genesys"
+                }
+
+            ];
+
+
+            $(function(){
+                var ctx = document.getElementById("doughnut-chart-area").getContext("2d");
+                window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {
+                    responsive: true
+                });
+
+
+                //set csrf before send ajax
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+                //end set csrf
+
+                // 获取日期时间并比对，不是当前日期行标注显示
+                function p(s) {
+                    return s < 10 ? '0' + s: s;
+                }
+                function localDate(v) {
+                    var d = new Date(v || Date.now());
+                    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+                return d.toISOString();
+}
+
+                var mydate = new Date();
+                var year = mydate.getFullYear();
+                var month = mydate.getMonth() + 1;
+                var date = mydate.getDate();
+                var now = p(year) + '-' + p(month) + '-' + p(date);
+
+                $('td[name="date"]').each(function () {
+                    var tddate = $(this).text();
+                    if( tddate != now){
+                        $(this).parent().addClass('danger');
+                    }
+                });
+                // end
+
+                $('td[name="SIP1_Status"],td[name="SIP2_Status"]').each(function(){
+                    var sip1 = $(this).text()
+                    if(sip1=="Up"){
+                        $(this).css('color','#0a610a');
+                    }else{
+                         $(this).css('color','#bb6666');
+                    }
+                });
+
+
+
+{#                var ary = new Array("111","22","33","111","111");#}
+{##}
+{#                var nary=ary.sort();#}
+{##}
+{#                for(var i=0;i<ary.length;i++){#}
+{##}
+{#                　　if (nary[i]==nary[i+1]){#}
+{##}
+{#                　　alert("数组重复内容："+nary[i]);#}
+{##}
+{#                　}#}
+{##}
+{#                }#}
+
+
+
+{#                function isRepeat(arr){#}
+{##}
+{#                　　var hash = {};#}
+{##}
+{#                　　for(var i in arr) {#}
+{##}
+{#                　　　　if(hash[arr[i]])#}
+{##}
+{#                　　　　return true;#}
+{##}
+{#                　　　　hash[arr[i]] = true;#}
+{##}
+{#                　　}#}
+{##}
+{#                　　return false;#}
+{##}
+{#                }#}
+{#                var ary = new Array("111","22","33","111","111");#}
+{#                isRepeat(ary);#}
+
+                // 下拉菜单选择每页显示条数
+                var cur_pagenumper = {{ request.COOKIES.pagenumper }}
+                $('#list-nums option').each(function(){
+                    if($(this).val()==cur_pagenumper){
+                        $(this).attr("selected", "selected");
+                    }
+                })
+                $('#list-nums').change(function(){
+                    pagenumper = $(this).val();
+                    console.log(pagenumper);
+                    $.post("{% url 'pagenumper' %}", {'pagenumper': pagenumper}, function(){
+                        console.log('xxxx');
+                        window.location.reload();
+                    });
+                });
+
+
+
+            });
+
+            // 文件上传加载函数
+            function OpenFileUploadBox(){
+                $('#file_upload').trigger("click");
+            }
+
+
+
+            function GetFilePath(){
+                var file_data = $('#file_upload')[0].files[0];
+                if(typeof(file_data) != "undefined"){  // 检测是否选择了文件
+                    // console.log(file_data);
+                    var file_type = file_data['type'];
+                    var file_name = file_data['name'];
+                    var msg_data = {
+                            'msg_type': file_type,
+                    }
+                    msg_data = JSON.stringify(msg_data);
+                    $("#config-finish-tag").text("").addClass('hidden');
+                    $('#fileinfo').html(file_name);
+                }else{
+                    $('#fileinfo').html("");
+                }
+
+            }
+
+            function FileUpload(){
+                var file_data = $('#file_upload')[0].files[0];
+                if(typeof(file_data) != "undefined"){  // 检测是否选择了文件
+                    // console.log(file_data);
+                    var file_type = file_data['type'];
+                    var file_name = file_data['name'];
+                    var msg_data = {
+                            'msg_type': file_type,
+                    }
+                    msg_data = JSON.stringify(msg_data);
+
+                    var formData = new FormData();  // 生成一个form表单
+                    formData.append('file_data', file_data);
+                    formData.append('msg_data', msg_data);
+
+                    $.ajax({
+                        url: '{% url "file_upload" %}',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,  // tell jQuery not to process the data
+                        contentType: false,  // tell jQuery not to set contenyType
+                        success: function(data){
+                            var new_filename_obj = JSON.parse(data);
+                            console.log(new_filename_obj.filename);
+                            GetFileUploadProgress(file_data, new_filename_obj.filename);
+
+                        }
+                    }); // end ajax
+
+                    // 清空file_upload文本域
+    {#                var file = $("#file_upload");#}
+    {#                file.after(file.clone().val(""));#}
+    {#                file.remove();#}
+
+                    $(".progress").removeClass('hidden');
+                }else{
+                    $("#config-finish-tag").text("未选择文件").removeClass('hidden');
+                }
+            }
+
+            function GetFileUploadProgress(file_obj, new_filename){
+                console.log(new_filename)
+
+                var UploadProcessRefresh = setInterval(function(){
+                    $.getJSON("file_upload_progress", {filename: file_obj.name}, function(callback){
+                        console.log("upload progress:" + callback.recv_size);
+                        if (file_obj.size == callback.recv_size){
+                            // upload done
+                            clearInterval(UploadProcessRefresh);
+                            $.get("delete_cache_key/", {cache_key: file_obj.name}, function(callback){
+                                console.log(callback);
+                                ExecAcsScript(new_filename);
+                            });
+
+                            setTimeout(function(){
+                                $('#file-progress').addClass('hidden');
+                                $(".progress-bar").css("width", "0%").text("0%");
+                            },1000);
+                        }
+                        var current_percent = (callback.recv_size/file_obj.size)*100 + "%";
+                        $(".progress-bar").css("width", current_percent).text(current_percent);
+                    });
+                }, 1000);
+
+            }
+            // 文件上传加载函数 end
+
+            function ExecAcsScript(filename) {
+                $("#config-finish-tag").text("正在后台配置中，请稍等...").removeClass('hidden');
+                var filename = filename;
+                var request_method_api = $("#fileicon input[name='request_method_api']:checked").val();
+                console.log(filename);
+                if ( filename != "" ){
+                    $.post("{% url 'config_phone' %}", {"filename": filename, "request_method_api": request_method_api}, function(data){
+                        // 清空file_upload文本域
+                        var file = $("#file_upload");
+                        file.after(file.clone().val(""));
+                        file.remove();
+                        $('#fileinfo').html("");
+                        $("#config-finish-tag").text("配置完成").removeClass('hidden');
+                        alert(data);
+                    });
+                }else {
+                    $("#config-finish-tag").text("未选择文件").removeClass('hidden');
+                }
+
+            }
+
+            function CloseWindow(){
+                // 清空file_upload文本域
+                var file = $("#file_upload");
+                file.after(file.clone().val(""));
+                file.remove();
+                $('#fileinfo').html("");
+                $("#config-finish-tag").text("").addClass('hidden');
+                window.location.reload();
+
+            }
+
+            // 获取url参数值
+            function GetQueryString(name) {
+                 var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                 var r = window.location.search.substr(1).match(reg);
+                 if(r!=null)return  unescape(r[2]); return null;
+            }
+
+            // 搜索关键字高亮显示
+            var search_keywords = GetQueryString("search_keywords");
+            if ( search_keywords != null && search_keywords != "" ){
+                $('#search_keywords').val(search_keywords);
+
+                $('#main_panel td').each(function () {
+                    if( $(this).attr("name") == "config_option" || $(this).children("input").attr("type") == "checkbox") {
+{#                         console.log($(this).html());#}
+                    }else{
+                        var str = $(this).html();
+{#                        re = new RegExp(search_keywords,"g"); //定义正则表达式#}
+{#                        var Newstr = str.replace(re, '<span style="color:#FF1493; font-weight: 700;">' + search_keywords + '</span>');#}
+{#                        $(this).html(Newstr)#}
+                    }
+                });
+            }
+
+            // 搜索窗口回车提交
+            $("body").delegate("#search_keywords", "keydown", function(e){
+                if(e.which == 13) {  //Enter key down
+                    if(e.ctrlKey){
+                        console.log("ctrl+enter");
+
+                    }else{
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // send msg button clicked，调用发送按钮函数
+                        $("#search_button").click();
+                        return false;
+
+                    }
+                }
+            });
+
+
+
+            $('td .ping').on('click', function(){
+                var IP = $(this).parent().parent().siblings("td[name='IP']").text();
+                console.log(IP);
+                $.post("{% url 'check_ping' %}", {"IP": IP}, function(data){
+                    alert(data);
+                });
+            });
+
+            // 数据导出
+            $('#excel_export').on('click', function(){
+                $('#loading').removeClass('hidden');
+                $.post("{% url 'excel_export' %}", function(data){
+                    $('#loading').addClass('hidden');
+{#                    alert("数据导出完成");#}
+                    var download_file_name = data;
+                    var download_url = '{% url "download_excel" "" %}' + download_file_name;
+                    console.log(download_url);
+                    window.location.href=download_url;
+                });
+            });
+
+            // 远程唤醒
+            $('#wakeupbtn').on('click', function(){
+                var ipmaclist = $('#wakeup textarea').val();
+                $('#loading').removeClass('hidden');
+                $.post("{% url 'wakeup' %}", {'wakeup': ipmaclist}, function(data){
+{#                    $('#loading').addClass('hidden');#}
+                    alert(data);
+
+                });
+            });
+
+            // 重启话机
+            $('.reboot_phone').on('click', function(){
+                var device_obj = $(this).parents('td').siblings();
+                var device_id = device_obj.eq(1).attr('value');
+                var device_ip = device_obj.eq(8).attr('value');
+                console.log(device_id, device_ip)
+                if(confirm(device_ip + " 确认重启话机吗...")){
+                    $.post("{% url 'reboot_phone' %}", {'device_id': device_id, 'device_ip': device_ip }, function(data){
+                        alert(data);
+                    })
+                }
+
+            })
+
+            // 隐藏td config_option，ping
+            $('td[name=config_option]').mouseover(function(){
+                $(this).children('div').removeClass('view-hide');
+            });
+            $('td[name=config_option]').mouseout(function(){
+                $(this).children('div').addClass('view-hide');
+            })
+
+
+            // 筛选重复数据，如当前存在2个或以上显示出来
+            function repeat_list(){
+                var table_tr = $("#genieacs_table tbody tr");
+                var arr = new Array();
+                $("#genieacs_table td[name='SIP1']").each(function(){
+{#                    console.log($(this).text());#}
+                    arr.push($(this).text());
+{#                    console.log(arr);#}
+                });
+                var nary=arr.sort();
+                var flag, repeat_num;
+                var counter = 1;
+
+                for(var i=0;i<arr.length;i++){
+
+                    if (nary[i]==nary[i+1]){
+{#                        console.log("数组重复内容："+nary[i+1]);#}
+                        table_tr.eq(i).removeClass('hidden');
+                        table_tr.eq(i).children("td[name='id']").text(counter);
+                        table_tr.eq(i+1).removeClass('hidden');
+                        table_tr.eq(i+1).children("td[name='id']").text(counter+1);
+                        flag = 1;
+
+                        if (repeat_num == nary[i]){
+                            counter += 1;
+                        }else{
+                            counter += 2;
+                        }
+                    }else{
+                        if (flag==1){
+                            flag = 0;
+                        }else{
+                            table_tr.eq(i).addClass('hidden');
+                        }
+                    }
+                    repeat_num = nary[i];
+                }
+                $("#total-count").text(counter-1);
+            }
+
+            if(GetQueryString('searchtype') == "repeat_list"){
+                repeat_list();
+            }
+
+
+
+
+
+
+
+
+        </script>
+
+{% endblock %}

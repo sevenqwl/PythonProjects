@@ -3,7 +3,7 @@
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
@@ -21,7 +21,7 @@ class AutoexecKeywords(models.Model):
     finish_time = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'autoexec_keywords'
 
 
@@ -40,7 +40,7 @@ class AutoexecWorkorder(models.Model):
     workorder_closetime = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'autoexec_workorder'
 
 
@@ -53,7 +53,7 @@ class Encryptinfo(models.Model):
     description = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'encryptinfo'
 
 
@@ -63,7 +63,7 @@ class Erpinfo(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'erpinfo'
 
 
@@ -116,7 +116,7 @@ class Hardwareinfo(models.Model):
     scepversion = models.CharField(db_column='SCEPversion', max_length=50, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        
         db_table = 'hardwareinfo'
 
 
@@ -137,7 +137,7 @@ class HardwareinfoSettingRecord(models.Model):
     capture_logfolder = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'hardwareinfo_setting_record'
 
 
@@ -146,7 +146,7 @@ class IndexCategory(models.Model):
     index_category = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'index_category'
 
 
@@ -158,7 +158,7 @@ class Kbinfo(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'kbinfo'
 
 
@@ -170,7 +170,7 @@ class LoginRecord(models.Model):
     login_type = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'login_record'
 
 
@@ -186,7 +186,7 @@ class Logininfo(models.Model):
     mac2 = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'logininfo'
 
 
@@ -196,7 +196,7 @@ class NetworkSegment(models.Model):
     function = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'network_segment'
 
 
@@ -220,7 +220,7 @@ class Phoneinfo(models.Model):
     ping_status = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'phoneinfo'
 
 
@@ -238,7 +238,7 @@ class PhoneinfoSettingRecord(models.Model):
     exec_logs = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'phoneinfo_setting_record'
 
 
@@ -248,7 +248,7 @@ class SecondCategory(models.Model):
     fatherid = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'second_category'
 
 
@@ -257,7 +257,7 @@ class SoftwareInstallation(models.Model):
     switch = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'software_installation'
 
 
@@ -274,7 +274,7 @@ class SwitchDevice(models.Model):
     sn = models.CharField(db_column='SN', max_length=50, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        
         db_table = 'switch_device'
 
 
@@ -294,7 +294,7 @@ class Switchinfo(models.Model):
     position = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'switchinfo'
 
 
@@ -311,7 +311,7 @@ class SwitchinfoSettingRecord(models.Model):
     exec_logs = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'switchinfo_setting_record'
 
 
@@ -328,7 +328,7 @@ class ThirdCategory(models.Model):
     image_icon = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'third_category'
 
 
@@ -338,7 +338,7 @@ class User(models.Model):
     status = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'user'
 
 
@@ -351,5 +351,57 @@ class WindowsUpdate(models.Model):
     kbid = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'windows_update'
+
+class PositionsRelation(models.Model):
+    ip = models.CharField(max_length=50, blank=True, null=True)
+    position = models.CharField(max_length=50, blank=True, null=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    # area = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        
+        db_table = 'positions_relation'
+
+
+class PhoneConfigurationOptions(models.Model):
+    status_choices = (('Enabled', u'启用'),
+                      ('Disabled', u'禁用'),
+                      )
+    boolean_choices = (('true', u'启用'),
+                      ('false', u'禁用'),
+                      )
+
+    platform = models.CharField(max_length=50, blank=True, null=True)
+    Sip1_Enable = models.CharField(choices=status_choices, default='Enabled', max_length=32)
+    Sip1_AuthPassword = models.CharField(max_length=50, blank=True, null=True)
+    Sip1_RegistrarServer = models.CharField(max_length=50, blank=True, null=True)
+    Sip1_UseOutboundProxy = models.CharField(choices=status_choices, default='Enabled', max_length=32)
+    Sip1_OutboundProxy = models.CharField(max_length=50, blank=True, null=True)
+    Sip1_AutoAnswerEnable = models.CharField(choices=boolean_choices, default='false', max_length=32)
+    Sip2_Enable = models.CharField(choices=status_choices, default='Disabled', max_length=32)
+    Sip2_AuthPassword = models.CharField(max_length=50, blank=True, null=True)
+    Sip2_RegistrarServer = models.CharField(max_length=50, blank=True, null=True)
+    Sip2_UseOutboundProxy = models.CharField(choices=status_choices, default='Disabled', max_length=32)
+    Sip2_OutboundProxy = models.CharField(max_length=50, blank=True, null=True)
+    Sip2_AutoAnswerEnable = models.CharField(choices=boolean_choices, default='false', max_length=32)
+    AdminPassword = models.CharField(max_length=50, blank=True, null=True)
+    AutopServerAddress = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        db_table = 'phone_configuration_options'
+
+
+class CeleryTaskRecord(models.Model):
+    date = models.DateField(blank=True, null=True)
+    time = models.TimeField(blank=True, null=True)
+    ip = models.CharField(max_length=50, blank=True, null=True)
+    device_id = models.CharField(max_length=50, blank=True, null=True)
+    task_id = models.CharField(max_length=50, blank=True, null=True)
+    task_name = models.CharField(max_length=50, blank=True, null=True)
+    args = models.CharField(max_length=255, blank=True, null=True)
+    kwargs = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'celery_task_record'

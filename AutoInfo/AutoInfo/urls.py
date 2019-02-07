@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from Info import views
+from AutoInfo import views
 
 urlpatterns = [
+    url(r'^$', views.genieacs),
     url(r'^admin/', admin.site.urls),
-    url(r'info/', include('Info.urls')),
+    url(r'^info/', include('Info.urls')),
+    # url(r'^info_test/', include('Info_test.urls')),
+    url(r'^login/', views.acc_login, name='login'),
+    url(r'logout/', views.acc_logout, name='logout'),
 
 ]
