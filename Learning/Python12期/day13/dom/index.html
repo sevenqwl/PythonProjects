@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div>
+        <div id="num">1</div>
+        <input type="button" value="+1" onclick="Add();"/>
+    </div>
+
+    <div>
+        <div id="n1">c1</div>
+        <a>asdfadd</a>
+    </div>
+    <ul>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+    </ul>
+    <div>
+        <div class="c1">1</div>
+        <div class="c1">2</div>
+        <div class="c1">3</div>
+    </div>
+
+    <form action="">
+        <p>用户名：<input name="username" value="123"/></p>
+        <p>密码：<input name="pwd" value="456"/></p>
+    </form>
+
+<script type="text/javascript">
+
+    function Add(){  // 自增数字
+        // alert(123);
+        var nid = document.getElementById('num');
+        var text = nid.innerText;
+        text = parseInt(text);
+        text += 1;
+        nid.innerText = text;
+    }
+
+//    var nid = document.getElementById('n1');
+//    console.log(nid.innerText);
+//    nid.innerText = "alex";
+//
+//    var lis = document.getElementsByTagName('li');
+//    for(var i in lis){
+//        var item = lis[i];
+//        item.innerText = i;
+//    }
+//
+//    var lis2 = document.getElementsByClassName('c1');
+//    for(var i in lis2){
+//        var item = lis2[i];
+//        item.innerText = i;
+//    }
+//
+//    var username = document.getElementsByName('username')[0];
+//    var pwd = document.getElementsByName('pwd')[0];
+//    console.log(username.value,pwd.value);
+
+
+</script>
+</body>
+</html>
+

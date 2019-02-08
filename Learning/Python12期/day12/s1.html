@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<meta charset="UTF-8">-->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <!--<meta http-equiv="Refresh" content="5; Url=http://www.baidu.com"/>-->
+    <!--<meta http-equiv="Refresh" content="5"/>-->
+    <title></title>
+</head>
+<body>
+    <div>1</div>
+    <div>2</div>
+    <!-- 自动换行 -->
+    <div style="width:200px; border:1px solid red; word-break:break-all;">
+        <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+        <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+    </div>
+
+    <!-- a -->
+    <!--<a href="#tt">看第二张</a>-->
+    <!--<div style="height: 2000px;background-color: red;">第一张</div>-->
+    <!--<div id="tt" style="height: 2000px;background-color: green;">第二张</div>-->
+
+    <!--select-->
+    <select name="" id="" size="7" multiple="multiple">
+        <option value="">上海</option>
+        <option value="">广州</option>
+        <option value="">北京</option>
+    </select>
+
+    <select name="" id="" size="7" multiple="multiple">
+        <optgroup label="一线城市">
+            <option value="">上海</option>
+            <option value="">广州</option>
+            <option value="">北京</option>
+        </optgroup>
+        <optgroup label="二线城市">
+            <option value="">上海</option>
+            <option value="">广州</option>
+            <option value="">北京</option>
+        </optgroup>
+
+    </select>
+
+    <h1>input系列</h1>
+
+    <h4>checkbox</h4>
+    <input type="checkbox" checked="checked"/>
+    <input type="checkbox" />
+
+    <h4>radio</h4>
+    <p>男：<input name="gender" type="radio" /></p>
+    <p>女：<input name="gender" type="radio" /></p>
+
+
+    <h4>text</h4>
+    <input type="text" />
+
+    <input type="password" />
+    <input type="button" value="btn"/>
+    <input type="submit" value="submit"/>
+    <input type="file" />
+
+    <form action="http://www.baidu.com">
+        <input type="text" />
+        <input type="button" value="提交"/>
+        <input type="submit" value="提交"/>
+    </form>
+
+    <textarea name="" id="" cols="30" rows="10">iii</textarea>
+
+    <h1>Label</h1>
+    <!--for属性和id捆绑-->
+    <label for="cb1">婚否</label>
+    <input id="cb1" type="checkbox" />
+
+    <label for="user">姓名</label>
+    <input id="user" type="text" />
+
+    <ul>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>222</li>
+    </ul>
+
+    <ol>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>222</li>
+    </ol>
+
+    <dl>
+        <dt>标题</dt>
+        <dd>内容</dd>
+        <dd>111</dd>
+        <dd>222</dd>
+    </dl>
+
+    <h1>table标签</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>第一列</th>
+                <th>第二列</th>
+                <th>第三列</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2">h1,h2</td>
+                <td>h3</td>
+            </tr>
+        <tr>
+                <td rowspan="2">hh1,hhh1</td>
+                <td>hh2</td>
+                <td>hh3</td>
+            </tr>
+        <tr>
+                <td>hhh2W</td>
+                <td>hhh3</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <fieldset>
+        <legend>登录</legend>
+        <p>用户名</p>
+        <p>密码</p>
+    </fieldset>
+
+    <hr />
+
+    <form action="" enctype="multipart/form-data" method="post"></form>  enctype="multipart/form-data" method="post"上传文件，把文件分块上传
+
+</body>
+</html>
