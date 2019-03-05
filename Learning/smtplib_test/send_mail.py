@@ -11,7 +11,7 @@ HOST = 'smtp.163.com'
 PORT = '25'  # 端口
 
 FROM = 'sevenqwl@163.com'
-password = 'SeVeN_94756756'
+password = 'xxx'
 TO = 'sevenqwl@163.com;154308618@qq.com'
 # TO = 'qiwenlong@jd.com'
 

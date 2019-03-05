@@ -3,30 +3,70 @@
 
 
 {% block container %}
-    {{ admin_class.list_display }}
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="panel-title">Panel title</h3>
-        </div>
-        <div class="panel-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        {% for column in admin_class.list_display %}
-                            <th>{{ column }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% get_query_sets admin_class as query_sets %}
-                    {% for obj in query_sets %}
-                        <tr>
-                            {% build_table_row obj admin_class  %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="row">
+        {{ admin_class.list_display }}
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">
 
+                <div class="row">
+                    <form class="" method="get">
+                        {% for condition in admin_class.list_filters %}
+                            <div class="col-lg-2">
+                                <span>{{ condition }}</span>
+                                {% render_filter_ele condition admin_class filter_conditions %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-success">检索</button>
+
+                    </form>
+                </div>
+
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            {% for column in admin_class.list_display %}
+                                <th>{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td>总计{{ query_sets.paginator.count }}条</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+{#                        {% get_query_sets admin_class as query_sets %}#}
+                        {% for obj in query_sets %}
+                            <tr>
+                                {% build_table_row obj admin_class  %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <nav>
+                <ul class="pagination">
+                    {% if query_sets.has_previous %}
+                        <li><a href="?page={{ query_sets.previous_page_number }}">上页</a></li>
+                    {% endif %}
+
+{#                    {% for loop_counter in query_sets.paginator.page_range %}#}
+{#                        {% render_page_ele  loop_counter query_sets filter_conditions %}#}
+{#                    {% endfor %}#}
+                    {% build_paginators  query_sets filter_conditions%}
+
+                    {% if query_sets.has_next %}
+                        <li><a href="?page={{ query_sets.next_page_number }}">下页</a></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </div>
     </div>
 {% endblock %}

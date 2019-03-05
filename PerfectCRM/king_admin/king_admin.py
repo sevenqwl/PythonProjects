@@ -15,9 +15,12 @@ enabled_admins最终的字典形式如下
 class BaseAdmin(object):
     list_display = []
     list_filter = []
+    list_per_page = 20
 
 class CustomerAdmin(BaseAdmin):
-    list_display = ['qq', 'name', 'phone', 'source']
+    list_display = ['qq', 'name', 'source', 'consultant', 'consult_course', 'date', 'status']
+    list_filters = ['source', 'consultant', 'consult_course', 'status']
+    list_per_page = 2
     # model = models.Customer
 
 class CustomerFollowUpAdmin(BaseAdmin):
