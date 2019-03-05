@@ -13,7 +13,6 @@ PORT = '25'  # 端口
 FROM = 'xxx@163.com'
 password = 'xxx'
 TO = 'xxx@163.com;xxx@qq.com'
-# TO = 'qiwenlong@jd.com'
 
 def message_plain_html(TYPE, CONTENT, SUBJECT, FROM, TO):
     message = MIMEText(CONTENT, TYPE, 'utf-8')
