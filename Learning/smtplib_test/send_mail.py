@@ -10,10 +10,9 @@ from email.mime.multipart import MIMEMultipart
 HOST = 'smtp.163.com'
 PORT = '25'  # 端口
 
-FROM = 'sevenqwl@163.com'
+FROM = 'xxx@163.com'
 password = 'xxx'
-TO = 'sevenqwl@163.com;154308618@qq.com'
-# TO = 'qiwenlong@jd.com'
+TO = 'xxx@163.com;xxx@qq.com'
 
 def message_plain_html(TYPE, CONTENT, SUBJECT, FROM, TO):
     message = MIMEText(CONTENT, TYPE, 'utf-8')
